@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SLA_Report.Models;
 
 namespace SLA_Report.Helpers {
-  public static partial class Factory {
+  public static class Factory {
     private static DateTime RandomDate() => new DateTime(2021, DateTime.Now.Month, new Random().Next(1, DateTime.Now.Day));
     public static List<TaskModel> GenerateTasks(int minCount = 150, int maxCount = 300) {
       var results = new List<TaskModel>();
