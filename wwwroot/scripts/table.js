@@ -17,8 +17,12 @@ updateTable = (items) => {
   columns = items.tasks.map(x => Object.keys(x))[0];
   const thead = document.querySelector('thead');
   const tbody = document.querySelector('tbody');
-  const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: 'numeric', /* hour: '2-digit', minute: '2-digit' */ };
-
+  const getDate = (date) => {
+    const date_options = { year: 'numeric', month: '2-digit', day: '2-digit', /* hour: '2-digit', minute: '2-digit' */ };
+    const weekday = new Date(date).toLocaleString('he', { weekday: 'long' });
+    const date_string = new Date(date).toLocaleString('he', date_options);
+    return `${date_string}, ${weekday}`;
+  }
   thead.innerHTML = `
   <tr>
     <th>#</th>
@@ -41,11 +45,11 @@ updateTable = (items) => {
       <td>${current.id}</td>
       <td>${current.departmentId}</td>
       <td>${TaskStatus[current.status]}</td>
-      <td>${current.created ? new Date(current.created).toLocaleString('he', options) : '---'}</td>
-      <td>${current.submitted ? new Date(current.submitted).toLocaleString('he', options) : '---'}</td>
-      <td>${current.updated ? new Date(current.updated).toLocaleString('he', options) : '---'}</td>
-      <td>${current.returned ? new Date(current.returned).toLocaleString('he', options) : '---'}</td>
-      <td>${current.completed ? new Date(current.completed).toLocaleString('he', options) : '---'}</td>
+      <td>${current.created ? getDate(current.created) : '---'}</td>
+      <td>${current.progress ? getDate(current.progress) : '---'}</td>
+      <td>${current.updated ? getDate(current.updated) : '---'}</td>
+      <td>${current.returned ? getDate(current.returned) : '---'}</td>
+      <td>${current.completed ? getDate(current.completed) : '---'}</td>
     </tr>`;
     tbody.innerHTML += datarow;
   }

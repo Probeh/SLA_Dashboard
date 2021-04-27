@@ -4,8 +4,8 @@ namespace SLA_Report.Models {
   public class TaskModel : BaseModel<TaskModel> {
     public DateTime? Completed { get; set; }
     public DateTime? Returned { get; set; }
-    public DateTime? Submitted { get; set; }
-    public TaskStatus Status { get; set; }
+    public DateTime? Progress { get; set; }
+    public TaskStatus? Status { get; set; }
     public int DepartmentId { get; set; }
 
     public TaskModel() : base() { }
@@ -17,7 +17,7 @@ namespace SLA_Report.Models {
         return false;
       if (filters.DepartmentId != 0 && this.DepartmentId != filters.DepartmentId)
         return false;
-      if (filters.Status != 0 && this.Status != filters.Status)
+      if (filters.Status != null && this.Status != filters.Status)
         return false;
       if (filters.MaxDate != null && this.Created > filters.MaxDate)
         return false;

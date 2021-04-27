@@ -5,7 +5,7 @@ using SLA_Report.Models;
 namespace SLA_Report.Helpers {
   public static partial class Factory {
     private static DateTime RandomDate() => new DateTime(2021, DateTime.Now.Month, new Random().Next(1, DateTime.Now.Day));
-    public static List<TaskModel> GenerateTasks(int minCount = 20, int maxCount = 100) {
+    public static List<TaskModel> GenerateTasks(int minCount = 150, int maxCount = 300) {
       var results = new List<TaskModel>();
       for (var i = 0; i < new Random().Next(minCount, maxCount); i++) {
         var instance = new TaskModel();
@@ -16,20 +16,20 @@ namespace SLA_Report.Helpers {
         instance.Status = (TaskStatus) new Random().Next(0, 5);
 
         switch (instance.Status) {
-          case TaskStatus.Submitted:
-            instance.Submitted = RandomDate();
+          case TaskStatus.Progress:
+            instance.Progress = RandomDate();
             break;
           case TaskStatus.Updated:
-            instance.Submitted = RandomDate();
+            instance.Progress = RandomDate();
             instance.Updated = RandomDate();
             break;
           case TaskStatus.Returned:
-            instance.Submitted = RandomDate();
+            instance.Progress = RandomDate();
             instance.Updated = RandomDate();
             instance.Returned = RandomDate();
             break;
-          case TaskStatus.Complete:
-            instance.Submitted = RandomDate();
+          case TaskStatus.Completed:
+            instance.Progress = RandomDate();
             instance.Updated = RandomDate();
             instance.Completed = RandomDate();
             break;

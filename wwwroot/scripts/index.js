@@ -30,7 +30,7 @@ const colorStyle = {
   }
 }
 var fields = {
-  ['department']: $('#form-dept'),
+  ['departmentId']: $('#form-dept'),
   ['maxDate']: $('#form-maxDate'),
   ['minDate']: $('#form-minDate'),
   ['status']: $('#form-status'),
@@ -48,12 +48,46 @@ getParams = () => Object.keys(fields)
     .join('&')
   : '';
 
+initData = () => fetch(endpoint).then(async (report) => {
+  const result = await report.json();
+  reportResult = result;
+  updateCharts(result);
+  updateTable(result);
+
+  const counter = {
+    completed: {
+      val: result.tasks.slice().filter(x => x.status == 4).length,
+      ref: $('#alert-completed-value'),
+    },
+    created: {
+      val: result.tasks.length,
+      ref: $('#alert-created-value'),
+    },
+    progress: {
+      val: result.tasks.slice().filter(x => x.status == 1).length + result.tasks.slice().filter(x => x.status == 2).length,
+      ref: $('#alert-progress-value'),
+    },
+    returned: {
+      val: result.tasks.slice().filter(x => x.status == 3).length,
+      ref: $('#alert-returned-value'),
+    },
+  }
+
+  Object.keys(counter).forEach(key => {
+    for (let index = 0; index <= counter[key]['val']; index++) {
+      setTimeout(() => {
+        counter[key]['ref'].text(index);
+      }, index == 0 ? 1 : 5 * (index + 1));
+    }
+  })
+});
+
 fetchData = () =>
   fetch(endpoint + getParams())
     .then(async (report) => {
-      reportResult = await report.json();
-      updateCharts(reportResult);
-      updateTable(reportResult);
+      const result = await report.json();
+      updateCharts(result);
+      updateTable(result);
     });
 
 $('form').submit((event) => {
@@ -61,4 +95,4 @@ $('form').submit((event) => {
   fetchData();
 });
 
-fetchData();
+initData();

@@ -24,7 +24,7 @@ class TaskModel extends BaseModel {
   lastUpdate = undefined;
   status = 0;
   returned = undefined;
-  submitted = undefined;
+  progress = undefined;
   constructor(args = undefined) {
     super(args);
   }

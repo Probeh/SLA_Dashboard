@@ -40,7 +40,6 @@ function getPolarChartData(report) {
       if (!statuscodes[index])
         statuscodes[index] = report.tasks.slice().filter(item => item.status == index).length;
     });
-  console.log(statuscodes);
 
   return {
     labels: Object.keys(statuscodes).map(index => `(${statuscodes[index]}) ${TaskStatus[index]}`),
@@ -58,9 +57,9 @@ function getBarChartData(report) {
 
   return {
     labels: keys.map(x => {
-      if (x <= 10) return `${x.toString().padStart('0', 2)} ימים`;
-      if (x == 20) return `${'10-20'} ימים`;
-      if (x == 30) return `${'20-30'} ימים`;
+      if (x <= 10) return `${x} ימים`;
+      if (x == 20) return `10-20 ימים`;
+      if (x == 30) return `20-30 ימים`;
       if (x > 30) return `מעל 30 ימים`;
     }),
     datasets: [{

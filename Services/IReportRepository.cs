@@ -13,7 +13,7 @@ namespace SLA_Report.Services {
     public IEnumerable<TSource> GetModels() => Factory.GenerateTasks() as IEnumerable<TSource>;
     public IEnumerable<TSource> GetModels<TQuery>(TQuery options) where TQuery : BaseQuery =>
       this.GetModels()
-      // .Where(x => x.RunQuery<TQuery>(options))
+      .Where(x => x.RunQuery<TQuery>(options))
       .OrderByDescending(x => x.Created);
   }
 }

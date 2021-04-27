@@ -89,7 +89,7 @@ canvas {
   justify-content: space-between;
   padding: 10px 15px;
 }
-#alert-value {
+.alert-value {
   text-align: left;
   font-size: 52px;
 }
