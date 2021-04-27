@@ -1,1 +1,1 @@
-git add . && git commit -m "Source Update" && git push -u origin master && echo "Update Complete"
+git add . && git commit -m "Source Update" && git push -u origin master && echo "Update Complete" & exit
