@@ -84,5 +84,20 @@ canvas {
   padding: 5px;
 }
 .alert {
-  padding: 15px 15px 30px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+#alert-value {
+  text-align: left;
+  font-size: 52px;
+}
+.fa {
+  opacity: 50%;
+  margin-left: 10px;
+  font-size: 58px;
+}
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
