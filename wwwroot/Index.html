@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="header shadow container">
+      {{FlowInstanceID}}
+    </div>
+    <div class="content">
+      <form class="side shadow">
+        <div class="container form-group">
+          <label for="form-dept">חטיבה מטפלת:</label>
+          <input type="number" placeholder="מזהה חטיבה" id="form-dept" autocomplete="off" class="form-control">
+        </div>
+        <div class="container form-group">
+          <label for="form-minDate">מתאריך:</label>
+          <input type="date" id="form-minDate" class="form-control">
+        </div>
+        <div class="container form-group">
+          <label for="form-maxDate">מתאריך:</label>
+          <input type="date" id="form-maxDate" class="form-control">
+        </div>
+        <div class="container form-group">
+          <label for="form-status">סטטוס:</label>
+          <select id="form-status" class="form-control">
+            <option value="">--------</option>
+            <option value="0">נוצר</option>
+            <option value="1">בטיפול</option>
+            <option value="2">עודכן</option>
+            <option value="3">הוחזר</option>
+            <option value="4">הסתיים</option>
+          </select>
+        </div>
+        <div class="container form-group">
+          <label for="form-task">תהליך נבחר:</label>
+          <input type="number" placeholder="מזהה תהליך" id="form-taskId" autocomplete="off" class="form-control">
+        </div>
+        <div class="container mt-4">
+          <button type="submit" class="btn btn-block btn-info shadow">חיפוש</button>
+        </div>
+      </form>
+      <div class="main shadow">
+        <div class="report">
+          <div class="row">
+            <div class="col-xs-12 col-md-6 col-xl-3">
+              <div class="alert alert-info m-0">
+                <strong>סה"כ נוצרו</strong>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-xl-3">
+              <div class="alert alert-warning m-0">
+                <strong>סה"כ בטיפול</strong>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-xl-3">
+              <div class="alert alert-danger m-0">
+                <strong>סה"כ הוחזרו</strong>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-xl-3">
+              <div class="alert alert-success m-0">
+                <strong>סה"כ נסגרו</strong>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-8">
+              <div class="card h-100 shadow">
+                <div class="card-header bg-info p-1"></div>
+                <div class="card-heading">
+                  <p>זמן טיפול</p>
+                </div>
+                <div class="card-body">
+                  <canvas id="barChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xl-4">
+              <div class="card h-100 shadow">
+                <div class="card-header bg-info p-1"></div>
+                <div class="card-heading">
+                  <p>סיכום תהליכים</p>
+                </div>
+                <div class="card-body">
+                  <canvas id="polarChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-8">
+              <div class="card h-100 shadow">
+                <div class="card-header bg-info p-1"></div>
+                <div class="card-heading">
+                  <p>רשימת תהליכים</p>
+                </div>
+                <div id="data-table" class="data-table card-body p-0">
+                  <table class="table table-lg table-striped table-bordered table-hover table-light shadow">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xl-4">
+              <div class="card h-100 shadow">
+                <div class="card-header bg-info p-1"></div>
+                <div class="card-heading">
+                  <p>תהליכים לפי חטיבה</p>
+                </div>
+                <div class="card-body">
+                  <canvas id="pieChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./scripts/models.js"></script>
+  <script src="./scripts/dashboard.js"></script>
+  <script src="./scripts/table.js"></script>
+  <script src="./scripts/index.js"></script>
+</body>
+
+</html>
