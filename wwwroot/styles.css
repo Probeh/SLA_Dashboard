@@ -3,7 +3,7 @@
   text-align: right;
 }
 html, body {
-  font-size: 14px;
+  font-size: 12px;
   margin: 0px;
   padding: 0px;
 }
@@ -12,6 +12,9 @@ p {
 }
 canvas {
   max-height: 300px;
+}
+td, th {
+  min-width: min-content !important;
 }
 .wrapper {
   display: flex;
@@ -27,14 +30,12 @@ canvas {
 .header {
   align-items: center;
   display: flex;
-  font-size: larger;
-  font-weight: bolder;
-  min-height: 40px;
-  max-height: 40px;
   justify-content: space-between;
   margin-bottom: 10px;
   max-height: 40px;
+  max-height: 40px;
   max-width: 100vw;
+  min-height: 40px;
   width: 100vw;
 }
 .content {
@@ -48,24 +49,29 @@ canvas {
   min-width: 300px;
   overflow-y: auto;
   padding: 20px 0px;
+}
+.expanded {
   width: 300px;
 }
+.collapse {
+  width: 0px;
+}
 .main {
-  flex: auto;
-  overflow-y: hidden;
   display: flex;
   flex-direction: column;
+  flex: auto;
   justify-content: space-between;
+  overflow-y: hidden;
 }
 .report {
-  overflow-y: auto;
   flex: auto;
+  overflow-y: auto;
   padding: 0px 10px;
 }
 .data-table {
-  overflow-y: auto;
-  overflow-x: auto;
   max-height: 375px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 .card-heading {
   align-items: center;
@@ -73,8 +79,16 @@ canvas {
   display: flex;
   font-size: 18px;
   height: 50px;
-  margin-bottom: 10px;
-  padding: 0px 20px;
+  justify-content: space-between;
+  padding: 0px 20px 0px 10px;
+}
+.table-nav {
+  display: flex;
+  align-items: center;
+  direction: ltr;
+}
+.table-nav > .btn {
+  margin-right: 10px;
 }
 .row {
   margin: 0px;
@@ -93,10 +107,10 @@ canvas {
   text-align: left;
   font-size: 52px;
 }
-.fa {
-  opacity: 50%;
-  margin-left: 10px;
+.alert .fa {
   font-size: 58px;
+  margin-left: 10px;
+  opacity: 50%;
 }
 .shadow {
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;

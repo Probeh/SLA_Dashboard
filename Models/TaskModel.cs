@@ -3,10 +3,12 @@ using System;
 namespace SLA_Report.Models {
   public class TaskModel : BaseModel<TaskModel> {
     public DateTime? Completed { get; set; }
-    public DateTime? Returned { get; set; }
     public DateTime? Progress { get; set; }
+    public DateTime? Returned { get; set; }
+    public DateTime? Submitted { get; set; }
     public TaskStatus? Status { get; set; }
-    public int DepartmentId { get; set; }
+    public string Department { get; set; }
+    public string StatusName { get; set; }
 
     public TaskModel() : base() { }
 
@@ -15,7 +17,7 @@ namespace SLA_Report.Models {
 
       if (filters.TaskId != 0 && this.Id != filters.TaskId)
         return false;
-      if (filters.DepartmentId != 0 && this.DepartmentId != filters.DepartmentId)
+      if (string.IsNullOrEmpty(filters.Department) && this.Department != filters.Department)
         return false;
       if (filters.Status != null && this.Status != filters.Status)
         return false;

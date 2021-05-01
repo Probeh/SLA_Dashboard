@@ -1,28 +1,27 @@
-let columns = [];
-
-$('#table-toggle').click((event) => toggleDataTable(event));
-
-toggleDataTable = (event) => {
-  const element = document.getElementById('data-table');
-  if (element.classList.contains('show')) {
-    element.classList.replace('show', 'hide');
-  }
-  else if (element.classList.contains('hide')) {
-    element.classList.replace('hide', 'show');
-  }
-  else element.classList.add('hide');
+var tableView = 'standard';
+var reportData = {};
+$('#table-standard').click(() => {
+  document.getElementById('table-detailed').classList.remove('active');
+  document.getElementById('table-standard').classList.add('active');
+});
+$('#table-detailed').click(() => {
+  document.getElementById('table-standard').classList.remove('active');
+  document.getElementById('table-detailed').classList.add('active');
+});
+getDate = (date) => {
+  const date_options = { year: 'numeric', month: '2-digit', day: '2-digit', /* hour: '2-digit', minute: '2-digit' */ };
+  const weekday = new Date(date).toLocaleString('he', { weekday: 'long' });
+  return new Date(date).toLocaleString('he', date_options) + ', ' + weekday;
+}
+updateTable = (report) => {
+  reportData = report;
+  if (tableView == 'detailed') updateDetailedTable(report.metrics.summarized);
+  else if (tableView == 'standard') updateStandardTable(report.tasks);
 }
 
-updateTable = (items) => {
-  columns = items.tasks.map(x => Object.keys(x))[0];
+updateStandardTable = (items) => {
   const thead = document.querySelector('thead');
   const tbody = document.querySelector('tbody');
-  const getDate = (date) => {
-    const date_options = { year: 'numeric', month: '2-digit', day: '2-digit', /* hour: '2-digit', minute: '2-digit' */ };
-    const weekday = new Date(date).toLocaleString('he', { weekday: 'long' });
-    const date_string = new Date(date).toLocaleString('he', date_options);
-    return `${date_string}, ${weekday}`;
-  }
   thead.innerHTML = `
   <tr>
     <th>#</th>
@@ -37,13 +36,13 @@ updateTable = (items) => {
   </tr>`;
 
   tbody.innerHTML = '';
-  for (let index = 0; index < items.tasks.length; index++) {
-    const current = items.tasks[index];
+  for (let index = 0; index < items.length; index++) {
+    const current = items[index];
     const datarow = `
     <tr>
       <td>${index + 1}</td>
       <td>${current.id}</td>
-      <td>${current.departmentId}</td>
+      <td>${current.department}</td>
       <td>${TaskStatus[current.status]}</td>
       <td>${current.created ? getDate(current.created) : '---'}</td>
       <td>${current.progress ? getDate(current.progress) : '---'}</td>
@@ -53,4 +52,7 @@ updateTable = (items) => {
     </tr>`;
     tbody.innerHTML += datarow;
   }
+}
+updateDetailedTable = (items) => {
+
 }

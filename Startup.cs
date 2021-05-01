@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,6 @@ namespace SLA_Report {
     public void ConfigureServices(IServiceCollection services) => services
       .AddScoped(typeof(IReportRepository<>), typeof(ReportRepository<>))
       .AddControllers();
-
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
       if (env.IsDevelopment()) {

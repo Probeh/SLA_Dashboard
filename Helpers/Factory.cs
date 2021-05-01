@@ -4,31 +4,39 @@ using SLA_Report.Models;
 
 namespace SLA_Report.Helpers {
   public static class Factory {
-    private static DateTime RandomDate() => new DateTime(2021, DateTime.Now.Month, new Random().Next(1, DateTime.Now.Day));
+    private static DateTime RandomDate() => DateTime.Now.Subtract(new TimeSpan(new Random().Next(1, 35), 0, 0, 0));
     public static List<TaskModel> GenerateTasks(int minCount = 150, int maxCount = 300) {
       var results = new List<TaskModel>();
       for (var i = 0; i < new Random().Next(minCount, maxCount); i++) {
         var instance = new TaskModel();
         instance.Created = RandomDate();
-        instance.DepartmentId = new Random().Next(1, 6);
+        instance.Department = Convert.ToString(new Random().Next(1, 6));
         instance.Id = new Random().Next(100, 999);
-        instance.IsActive = (bool) (new Random().Next(0, 2) == 1);
-        instance.Status = (TaskStatus) new Random().Next(0, 5);
+        instance.Status = (TaskStatus) new Random().Next(0, 6);
+        instance.StatusName = GetStatusName((TaskStatus) instance.Status);
+        instance.IsActive = (bool) (instance.Status != TaskStatus.Completed);
 
-        switch (instance.Status) {
+        switch ((TaskStatus) instance.Status) {
+          case TaskStatus.Submitted:
+            instance.Submitted = RandomDate();
+            break;
           case TaskStatus.Progress:
             instance.Progress = RandomDate();
+            instance.Submitted = RandomDate();
             break;
           case TaskStatus.Updated:
             instance.Progress = RandomDate();
+            instance.Submitted = RandomDate();
             instance.Updated = RandomDate();
             break;
           case TaskStatus.Returned:
             instance.Progress = RandomDate();
-            instance.Updated = RandomDate();
             instance.Returned = RandomDate();
+            instance.Submitted = RandomDate();
+            instance.Updated = RandomDate();
             break;
           case TaskStatus.Completed:
+            instance.Submitted = RandomDate();
             instance.Progress = RandomDate();
             instance.Updated = RandomDate();
             instance.Completed = RandomDate();
@@ -37,6 +45,23 @@ namespace SLA_Report.Helpers {
         results.Add(instance);
       }
       return results;
+    }
+    public static string GetStatusName(TaskStatus status) {
+      switch (status) {
+        case TaskStatus.Created:
+          return StatusNames.Created;
+        case TaskStatus.Submitted:
+          return StatusNames.Submitted;
+        case TaskStatus.Progress:
+          return StatusNames.Progress;
+        case TaskStatus.Updated:
+          return StatusNames.Updated;
+        case TaskStatus.Returned:
+          return StatusNames.Returned;
+        case TaskStatus.Completed:
+          return StatusNames.Completed;
+      }
+      return string.Empty;
     }
   }
 }

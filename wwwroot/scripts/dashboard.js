@@ -6,20 +6,18 @@ function updateCharts(report) {
   barChartItem.data = getBarChartData(report);
   pieChartItem.data = getPieChartData(report);
   polarChartItem.data = getPolarChartData(report);
-  // lineChartItem.data = getLineChartData(report);
 
   barChartItem.update();
   pieChartItem.update();
   polarChartItem.update();
-  // lineChartItem.update();
 }
 function getPieChartData(report) {
   const departments = {};
-  report.tasks.map(x => x.departmentId)
+  report.tasks.map(x => x.department)
     .sort((x, y) => x - y)
     .forEach(index => {
       if (!departments[index])
-        departments[index] = report.tasks.slice().filter(item => item.departmentId == index).length;
+        departments[index] = report.tasks.slice().filter(item => item.department == index).length;
     });
   return {
     labels: Object.keys(departments).map(index => `(${departments[index]}) ${'חטיבה ' + index}`),
@@ -53,52 +51,17 @@ function getPolarChartData(report) {
   }
 }
 function getBarChartData(report) {
-  const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 31].reverse();
+  const keys = Object.keys(report.metrics.resolution).reverse().map(key => key + ' ימים');
+  const vals = Object.keys(report.metrics.resolution).reverse().map(key => report.metrics.resolution[key]);
 
   return {
-    labels: keys.map(x => {
-      if (x <= 10) return `${x} ימים`;
-      if (x == 20) return `10-20 ימים`;
-      if (x == 30) return `20-30 ימים`;
-      if (x > 30) return `מעל 30 ימים`;
-    }),
+    labels: keys,
     datasets: [{
-      data: keys.map(key => report.tasks.slice().filter(task => {
-        const difference = () => Math.floor((new Date() - new Date(task.created)) / 86400000);
-        if (key == 31 /*  30+  */ ) return difference() > 30;
-        if (key == 30 /* 21-30 */ ) return difference() > 20 && difference() <= 30;
-        if (key == 20 /* 11-20 */ ) return difference() > 10 && difference() <= 20;
-        /* else => key == 1 - 10 */
-        return difference() == key;
-      }).length),
-      backgroundColor: background,
-      borderColor: borderLine,
+      data: vals,
+      backgroundColor: colorStyle.cyan.back,
+      borderColor: colorStyle.cyan.line,
       borderWidth: 1,
       hoverOffset: 4
     }]
-  }
-}
-function getLineChartData(report) {
-  const options = { year: 'numeric', month: 'long' };
-  const values = {};
-  report?.tasks?.forEach(task => {
-    const key = new Date(task.created).toLocaleString('he', options);
-    if (!values[key]) values[key] = new Array();
-    values[key].push(task);
-  });
-  const keys = Object.keys(values).slice().sort((x, y) => new Date(y) - new Date(x));
-  return {
-    labels: keys,
-    datasets: Object.keys(TaskStatus)
-      .map(index => {
-        return {
-          label: TaskStatus[index],
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          backgroundColor: [background[index]],
-          borderColor: [borderLine[index]],
-          borderWidth: 1,
-          hoverOffset: 4
-        }
-      })
   }
 }

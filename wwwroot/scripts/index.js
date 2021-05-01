@@ -82,6 +82,15 @@ initData = () => fetch(endpoint).then(async (report) => {
   })
 });
 
+$('#toggleSidenav').click((event) => {
+  const sidenav = document.querySelector('.side');
+  sidenav.classList.contains('collapse')
+    ? sidenav.classList.replace('collapse', 'expanded')
+    : sidenav.classList.contains('expanded')
+      ? sidenav.classList.replace('expanded', 'collapse')
+      : sidenav.classList.add('expanded');
+})
+
 fetchData = () =>
   fetch(endpoint + getParams())
     .then(async (report) => {

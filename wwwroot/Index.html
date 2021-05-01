@@ -15,10 +15,10 @@
 
   <div class="wrapper">
     <div class="header shadow container">
-      {{FlowInstanceID}}
+      <button id="toggleSidenav" class="btn btn-outline-info"><i class="fa fa-bars"></i></button>
     </div>
     <div class="content">
-      <form class="side shadow">
+      <form class="side collapse shadow">
         <div class="container form-group">
           <label for="form-dept">חטיבה מטפלת:</label>
           <input type="number" placeholder="מזהה חטיבה" id="form-dept" autocomplete="off" class="form-control">
@@ -36,10 +36,11 @@
           <select id="form-status" class="form-control">
             <option value="">--------</option>
             <option value="0">נוצר</option>
-            <option value="1">בטיפול</option>
-            <option value="2">עודכן</option>
-            <option value="3">הוחזר</option>
-            <option value="4">הסתיים</option>
+            <option value="1">נשלח</option>
+            <option value="2">בטיפול</option>
+            <option value="3">עודכן</option>
+            <option value="4">הוחזר</option>
+            <option value="5">הסתיים</option>
           </select>
         </div>
         <div class="container form-group">
@@ -128,14 +129,20 @@
                 <div class="card-header bg-info p-1"></div>
                 <div class="card-heading">
                   <p>רשימת תהליכים</p>
+                  <div class="table-nav">
+                    <button id="table-detailed" class="btn btn-lg btn-outline-info">תקופתי</button>
+                    <button id="table-standard" class="btn btn-lg btn-outline-info active">כללי</button>
+                  </div>
                 </div>
-                <div id="data-table" class="data-table card-body p-0">
-                  <table class="table table-lg table-striped table-bordered table-hover table-light shadow">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  <div id="data-table" class="data-table">
+                    <table class="table table-lg table-striped table-bordered table-hover table-light shadow">
+                      <thead>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -154,16 +161,15 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./scripts/models.js"></script>
-  <script src="./scripts/dashboard.js"></script>
-  <script src="./scripts/table.js"></script>
-  <script src="./scripts/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./scripts/models.js"></script>
+    <script src="./scripts/dashboard.js"></script>
+    <script src="./scripts/table.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>
